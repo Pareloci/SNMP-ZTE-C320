@@ -1,0 +1,42 @@
+global:
+
+  scrape_interval: 15s
+
+scrape_configs:
+
+  - job_name: 'vsol'
+    metrics_path: /snmp
+    params:
+      module: [vsol_general]
+    static_configs:
+      - targets:
+        - 172.100.100.200
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: snmp-exporter:9116
+
+  - job_name: "OLT_ZTE_320"
+    #agregado en fase de pruebas, eliminar si arroja error, recargar el contenedor
+    scrape_interval: 60s       #originalmente eran 30s
+    scrape_timeout: 55s        #aquí eran 25s
+    static_configs:
+
+      - targets:
+
+        - 172.100.100.100
+
+    metrics_path: /snmp
+    params:
+      module: [zte_c320_full]
+      auth: [loci_auth]
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: snmp-exporter:9116  # Nombre del servicio/contenedor de snmp_exporter

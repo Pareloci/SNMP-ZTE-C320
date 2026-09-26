@@ -1,0 +1,19 @@
+auths:
+  loci_auth:
+    community: LOCI
+    version: 2
+
+modules:
+  zte_c320_full:
+    max_repetitions: 10
+    walk:
+      - sysUpTime
+      - ifXTable
+      - zxAnPonLinkInfoTable          # Información de enlace óptico
+      - zxAnPonOnuOpticalPowerTable    # Tabla de potencias de ONUs (RX/TX)
+      - 1.3.6.1.4.1.3902.1012.3.50.12   # Potencia óptica ONT (Rx/Tx/OLT Rx)
+      - 1.3.6.1.4.1.3902.1012.3.50.12.1.1.1 #En teoria es la potencia TX de la OLT
+      - 1.3.6.1.4.1.3902.1012.3.50.12.1.1.2 #En teoria es la potencia RX en la ONU
+      - 1.3.6.1.4.1.3902.1012.3.50.12.1.1.3 #En teoria es la potencia TX de la ONU
+      - 1.3.6.1.4.1.3902.1012.3.50.12.1.1.4 #En teoria es la potencia RX de la OLT
+      - 1.3.6.1.4.1.3902.1012.3.50.12.1.1.5 #Habrá que ver que sirve
